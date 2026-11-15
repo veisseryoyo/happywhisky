@@ -58,7 +58,7 @@ a:hover{opacity:.85}
 <div><p style="color:#8F4F12;font-size:44px;font-weight:900">2</p><h3>התאמת הסדנה</h3><p>בוחרים תוכן, תאריך ומיקום, ומציינים אם נדרשת כשרות.</p></div>
 <div><p style="color:#8F4F12;font-size:44px;font-weight:900">3</p><h3>האירוע</h3><p>מגיעים, טועמים ונהנים. אנחנו דואגים להכול.</p></div>
 </div>
-<p style="margin-top:32px;color:#5A4E43">עד 20 משתתפים · משך הסדנה ומיקום יקבע בתיאום איתכם</p></div></div>
+<p style="margin-top:32px;color:#5A4E43">עד 20 משתתפים · משך הסדנה ומיקום: [להשלים]</p></div></div>
 
 <div id="packages" class="s" style="background:#EFE4D3"><div class="w"><h2>תפריט הסדנאות</h2><p style="margin:-16px 0 32px;font-size:18px">כל הסדנאות מותאמות אישית (Taylor Made) לאופי הארגון שלכם, עם 4 סוגי וויסקי איכותיים ועד 20 משתתפים.</p><div class="g" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr))">
 <div class="c"><p style="color:#8F4F12;font-weight:700;margin-bottom:8px">פופולרי · כשרה</p><h3>אומנות הפיניש והאימפקט הגלובלי</h3><p style="color:#8F4F12;font-weight:500;margin-bottom:8px">סינרגיה בין מורשת סקוטית לטאץ׳ ישראלי</p><p style="color:#5A4E43">הסדנה הכשרה: חיבור ייחודי בין עולמות עם שבירת פרדיגמות וגשרים תרבותיים.</p><p style="font-size:30px;font-weight:900;margin:16px 0">4,500 ₪</p><ul style="margin:0 0 24px;padding:0;padding-inline-start:20px;line-height:1.9"><li>הבנת הליבה מול המעטפת</li><li>חיבור בין עולמות (Cross-Industry)</li><li>ניהול גיוון וגשרים תרבותיים</li><li>שבירת פרדיגמות</li></ul><a class="b" href="#contact">בקשו פרטים</a></div>
@@ -74,16 +74,42 @@ a:hover{opacity:.85}
 
 <div id="contact" class="s" style="background:#1E1814;color:#F7F3EE"><div class="w" style="max-width:640px">
 <h2>בואו נתכנן את האירוע הבא של הצוות</h2>
-<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display:grid;gap:18px">
+<form id="lead" action="https://formsubmit.co/dean@happywhisky.events" method="POST" style="display:grid;gap:18px"><input type="hidden" name="_subject" value="פנייה חדשה מהאתר: סדנת וויסקי"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 <div><label for="n">שם מלא</label><input id="n" name="name" type="text" required></div>
 <div><label for="e">אימייל עבודה</label><input id="e" name="email" type="email" required></div>
 <div><label for="c">חברה</label><input id="c" name="company" type="text" required></div>
 <div><label for="p">מספר משתתפים ותאריך משוער</label><input id="p" name="details" type="text" required></div>
 <div><button class="b d" type="submit" style="border:0;cursor:pointer;font-family:inherit">שלחו בקשה, נחזור תוך 24 שעות</button></div>
+<div id="lead-msg" role="status" aria-live="polite" style="font-size:18px"></div>
 <p id="wa" style="color:#E4DACC">או ישירות: <a href="https://wa.me/972504210873" target="_blank" rel="noopener" style="color:#E0A15A;font-weight:700">וואטסאפ</a> · <a href="tel:+972504210873" style="color:#E0A15A;font-weight:700"><span dir="ltr">050-4210873</span></a></p></form></div></div>
 
 <div style="background:#1E1814;color:#E4DACC;border-top:1px solid #3A3028"><div class="w" style="padding-top:14px;padding-bottom:14px;font-size:15px;display:flex;gap:8px 24px;flex-wrap:wrap;justify-content:space-between;align-items:center"><span>Happy Power Hour · דין ויסר</span><span style="display:flex;gap:0 24px;flex-wrap:wrap"><a href="https://www.linkedin.com/in/deanveisser/" target="_blank" rel="noopener" style="color:#E0A15A;display:inline-block;padding:10px 0">דין ויסר בלינקדאין</a><a href="https://www.linkedin.com/company/145440287/" target="_blank" rel="noopener" style="color:#E0A15A;display:inline-block;padding:10px 0">Happy Power Hour בלינקדאין</a></span></div></div>
 </div>
 
+<script>
+(function(){
+var f=document.getElementById('lead'),m=document.getElementById('lead-msg'),b=f.querySelector('button');
+var WA='https://wa.me/972504210873';
+function wa(t){return '<a class="b d" href="'+WA+'?text='+encodeURIComponent(t)+'" target="_blank" rel="noopener">'+(t?'רוצים תשובה מהירה? שלחו גם בוואטסאפ':'שלחו הודעה בוואטסאפ')+'</a>';}
+f.addEventListener('submit',function(e){
+  e.preventDefault();
+  var d={};new FormData(f).forEach(function(v,k){d[k]=v;});
+  if(d._honey){return;}
+  var label=b.textContent;b.disabled=true;b.style.opacity='.6';b.textContent='שולח...';
+  fetch('https://formsubmit.co/ajax/dean@happywhisky.events',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(d)})
+  .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+  .then(function(x){
+    if(!(x.ok&&String(x.j.success)==='true')){throw new Error('send');}
+    var t='שלום דין, שמי '+d.name+', מחברת '+d.company+'. אשמח לפרטים על סדנת וויסקי. משתתפים ותאריך משוער: '+d.details;
+    m.innerHTML='<p style="margin-bottom:14px">תודה, הפנייה התקבלה. נחזור אליכם תוך 24 שעות.</p>'+wa(t);
+    f.reset();
+  })
+  .catch(function(){
+    m.innerHTML='<p style="margin-bottom:14px">לא הצלחנו לשלוח את הטופס. אפשר לפנות אלינו ישירות בטלפון 050-4210873 או בוואטסאפ.</p>'+wa('');
+  })
+  .then(function(){b.disabled=false;b.style.opacity='';b.textContent=label;});
+});
+})();
+</script>
 </body>
 </html>
